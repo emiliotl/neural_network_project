@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Integration</title>
+
+<!--    <script type="text/javascript" src="front_end.js"></script>-->
+</head>
+<body>
+    <div id="form">
+        <form id="formElem">
+            <label for="input_value">Inputs: </label><input type="text" id="input_value" name="input" placeholder="[2, 3]"><br>
+            <label for="output_value">Outputs: </label><input type="text" id="output_value" name="output" placeholder="[60, 40]"><br>
+            <label for="learning_rate">Learning Rate: </label><input type="text" id="learning_rate" name="learning_rate" placeholder="0.01"><br>
+            <label for="epochs">Epochs: </label><input type="text" id="epochs" name="epochs" placeholder="100000"><br>
+            <label for="first_weight_batch">Weights 1-4: </label><input type="text" id="first_weight_batch" name="weights1" placeholder="[[1, 2], [3, 2]]"><br>
+            <label for="second_weight_batch">Weights 5-7: </label><input type="text" id="second_weight_batch" name="weights2" placeholder="[[2, 3], [2, 1]]"><br>
+            <label for="first_bias">Bias #1: </label><input type="text" id="first_bias" name="bias1" placeholder="0.35"><br>
+            <label for="second_bias">Bias #2: </label><input type="text" id="second_bias" name="bias2" placeholder="0.6"><br>
+            <input type="submit" value="Calculate">
+        </form>
+     </div>
+    <div id="result"></div>
+    <script type="text/javascript" src="front_end.js"></script>
+</body>
+</html>

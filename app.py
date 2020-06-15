@@ -1,4 +1,6 @@
 import numpy
+from flask import Flask
+from flask import request, render_template
 from neural_network_components.neural_network import NeuralNetwork
 from neural_network_components.model import Model
 
@@ -31,14 +33,29 @@ def derivative_activation_function(input_value):
 cost_functions = (cost_function, derivative_cost_function)
 activation_functions = (activation_function, derivative_activation_function)
 
-inputs = numpy.array([2, 3])
-outputs = numpy.array([60, 40])
-learning_rate = 0.01
-epochs = 100000
-steps = 500
+app = Flask(__name__, static_url_path='', static_folder='templates', template_folder='templates')
 
-neural_network = NeuralNetwork(
-    [[numpy.array([[1, 2], [3, 2]]), 0.35, activation_functions],
-     [numpy.array([[2, 3], [2, 1]]), 0.60, activation_functions]])
-model = Model(neural_network, cost_functions, learning_rate, epochs, steps)
-model.fit(inputs, outputs)
+
+@app.route('/')
+def home_page():
+    return render_template('index.html')
+
+
+@app.route('/post', methods=['POST'])
+def post_page():
+    user_inputs = {key: eval(value) for (key, value) in request.values.dicts[1].items()}
+
+    inputs = numpy.array(user_inputs['input'])
+    outputs = numpy.array(user_inputs['output'])
+    learning_rate = user_inputs['learning_rate']
+    epochs = user_inputs['epochs']
+
+    neural_network = NeuralNetwork(
+        [[numpy.array(user_inputs['weights1']), user_inputs['bias1'], activation_functions],
+         [numpy.array(user_inputs['weights2']), user_inputs['bias2'], activation_functions]])
+    model = Model(neural_network, cost_functions, learning_rate, epochs)
+    model.fit(inputs, outputs)
+    return "Success"
+
+
+app.run(port=4995)
