@@ -33,7 +33,7 @@ def derivative_activation_function(input_value):
 cost_functions = (cost_function, derivative_cost_function)
 activation_functions = (activation_function, derivative_activation_function)
 
-app = Flask(__name__, static_url_path='', static_folder='templates', template_folder='templates')
+app = Flask(__name__, static_url_path='', static_folder='templates')
 
 
 @app.route('/')
@@ -43,7 +43,9 @@ def home_page():
 
 @app.route('/post', methods=['POST'])
 def post_page():
-    user_inputs = {key: eval(value) for (key, value) in request.values.dicts[1].items()}
+    user_inputs = {
+        key: eval(value) for (key, value) in request.values.dicts[1].items()
+    }
 
     inputs = numpy.array(user_inputs['input'])
     outputs = numpy.array(user_inputs['output'])
@@ -51,8 +53,12 @@ def post_page():
     epochs = user_inputs['epochs']
 
     neural_network = NeuralNetwork(
-        [[numpy.array(user_inputs['weights1']), user_inputs['bias1'], activation_functions],
-         [numpy.array(user_inputs['weights2']), user_inputs['bias2'], activation_functions]])
+        [[numpy.array(user_inputs['weights1']),
+          user_inputs['bias1'],
+          activation_functions],
+         [numpy.array(user_inputs['weights2']),
+          user_inputs['bias2'],
+          activation_functions]])
     model = Model(neural_network, cost_functions, learning_rate, epochs)
     model.fit(inputs, outputs)
     return "Success"

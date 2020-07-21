@@ -1,0 +1,5 @@
+# Modules
+numpy
+pandas
+matplotlib
+Flask
